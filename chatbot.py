@@ -1,6 +1,8 @@
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
 
+class ENGSM:
+    ISO_639_1 = 'en_core_web_sm'
 
 class chatbot:
     bot = None
@@ -14,6 +16,7 @@ class chatbot:
         self.bot = ChatBot(
             self.botname,
             storage_adapter='chatterbot.storage.SQLStorageAdapter',
+            tagger_language=ENGSM,
             database_uri=self.database_uri,
             logic_adapters=[
                 {
