@@ -1,5 +1,5 @@
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer
+from chatterbot.trainers import ListTrainer
 
 
 class chatbot:
@@ -9,7 +9,8 @@ class chatbot:
     file_training="./training.json"
     exit_conditions = (":q", "quit", "exit","-1","sair","tchau","bye")
     database_uri='sqlite:///chatbot.sqlite3'
-
+    training_data = open('training.txt').read().splitlines()
+        
     def init(self):
         self.bot = ChatBot(
             self.botname,
@@ -27,15 +28,10 @@ class chatbot:
         return self.bot.get_response(data)
 
     def training(self):
-        self.conversa = ChatterBotCorpusTrainer(self.bot)
-        self.conversa.train(
-            self.file_training
-        )
-        
-        self.conversa.train("chatterbot.corpus.portuguese",
-            "chatterbot.corpus.portuguese.greetings",
-            "chatterbot.corpus.portuguese.conversations"
-        )
+        self.conversa = ListTrainer(self.bot)
+        self.conversa.train(self.training_data)
+
+
         
 
     def run(self):
