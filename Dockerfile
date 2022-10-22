@@ -3,6 +3,7 @@ LABEL author="Mario"
 WORKDIR /app
 COPY ./requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+RUN pip install --ignore-installed PyYAML==5.3.1
 COPY . .
 ENTRYPOINT ["python3"]
 CMD ["app.py"] 
